@@ -27,10 +27,6 @@ Entries are listed newest first. Each entry summarizes the change, the relevant 
 - Updated `backend/config/settings.py` to use `DJANGO_SECRET_KEY` when set and generate a temporary key for local development otherwise.
 - Django’s system check passed. Verified both secret key paths, the welcome page’s HTTP 200 response in Django’s test client, and Git’s ignore rules for local files.
 
-## 2026-11-22 · English documentation
-
-- Translated `README.md`, `UPDATES.md`, and `AGENTS.md` into English, including earlier entries in the change history.
-- Verified that the README commands and link targets were preserved.
 
 ## 2026-11-22 · Documentation and change tracking
 
