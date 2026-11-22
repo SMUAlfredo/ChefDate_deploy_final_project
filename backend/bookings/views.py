@@ -3,9 +3,17 @@ import re
 
 from django.core.exceptions import RequestDataTooBig
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
+from django.middleware.csrf import get_token
+from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_GET, require_POST
 
 from .forms import BookingForm
+
+
+@require_GET
+@never_cache
+def booking_csrf_token(request):
+    return JsonResponse({'csrfToken': get_token(request)})
 
 
 @require_POST

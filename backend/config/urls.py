@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from bookings.views import create_booking
+from bookings.views import booking_csrf_token, create_booking
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/bookings/', create_booking, name='booking-create'),
+    path('api/bookings/csrf/', booking_csrf_token, name='booking-csrf'),
 ]
