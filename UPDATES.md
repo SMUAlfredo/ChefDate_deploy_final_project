@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-22 - Initial migrations on Neon development
+
+- Applied Django's initial migrations to the configured Neon development database with `uv run python manage.py migrate`.
+- `uv run python manage.py showmigrations` showed all 18 migrations as `[X]` across `admin`, `auth`, `contenttypes`, and `sessions`. None remain pending.
+
 ## 2026-11-22 · Local Neon PostgreSQL configuration
 
 - Added PostgreSQL dependencies with `uv` and configured `backend/config/settings.py` to prefer the environment’s `DATABASE_URL`, then read `backend/.env`. PostgreSQL connections verify the server certificate and hostname.
