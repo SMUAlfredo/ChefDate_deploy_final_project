@@ -26,3 +26,7 @@ Django generates a temporary secret key for each process during local developmen
 ## Change history
 
 See [UPDATES.md](UPDATES.md) for changes, verification results, and pending work.
+
+## Security
+
+Follow [SECURITY_RULES.md](SECURITY_RULES.md) when working on ChefDate.

@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-22 · Security rules for contributors and agents
+
+- Added `SECURITY_RULES.md` with requirements for secrets, private data, access control, secure deployment, and verification.
+- Made the rules required reading in `AGENTS.md` and linked them from `README.md`.
+- Reviewed the guidance against OWASP ASVS and the Django 5.2 deployment checklist. Verified local documentation links and checked the staged diff for whitespace errors.
+
 ## 2026-11-22 · Versioned documentation and local secret handling
 
 - Added `README.md`, `AGENTS.md`, and `UPDATES.md` to the checkout that tracks `origin/main`.
