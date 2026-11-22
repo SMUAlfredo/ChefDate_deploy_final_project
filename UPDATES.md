@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-22 · Booking creation endpoint
+
+- Added `POST /api/bookings/` with JSON input and the existing Django CSRF protection. It reuses the `Booking` model's validation through a `ModelForm`, creates bookings as `pending`, returns only the ID with `201`, and rejects invalid requests with `400` before saving.
+- Added tests with synthetic data and an in-memory SQLite configuration. The tests cover a saved booking in Django Admin, missing and invalid fields, optional allergy notes, and the endpoint's access protections. The migration dry run found no model changes, and Neon was untouched.
+- Run the tests from `backend/` with `uv run python manage.py test bookings --settings=config.settings_test`. Client integration is pending.
+
 ## 2026-11-22 · Initial booking model and admin
 
 - Added `backend/bookings/` and registered it in `backend/config/settings.py`. The model uses the requested fallback fields, defaults to `Pending`, and also supports `Confirmed`.
