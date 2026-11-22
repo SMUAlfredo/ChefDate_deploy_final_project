@@ -10,8 +10,11 @@ from .models import Booking, BookingStatus
 class BookingCreationTests(TestCase):
     def setUp(self):
         self.client = Client(enforce_csrf_checks=True)
-        self.client.get(reverse('admin:login'))
-        self.csrf_headers = {'X-CSRFToken': self.client.cookies['csrftoken'].value}
+        csrf = self.client.get(reverse('booking-csrf'))
+        self.assertEqual(csrf.status_code, 200)
+        self.assertIn('no-store', csrf['Cache-Control'])
+        self.assertIn('csrftoken', csrf.cookies)
+        self.csrf_headers = {'X-CSRFToken': csrf.json()['csrfToken']}
         self.url = reverse('booking-create')
         self.payload = {
             'customer_name': 'Synthetic ChefDate Guest',
@@ -98,5 +101,12 @@ class BookingCreationTests(TestCase):
         response = self.client.post(self.url, self.payload, content_type='application/json')
 
         self.assertEqual(response.status_code, 403)
+        cross_origin = self.client.post(
+            self.url,
+            self.payload,
+            content_type='application/json',
+            headers={**self.csrf_headers, 'Origin': 'https://example.invalid'},
+        )
+        self.assertEqual(cross_origin.status_code, 403)
         self.assertEqual(self.client.get(self.url).status_code, 405)
         self.assertFalse(Booking.objects.exists())
