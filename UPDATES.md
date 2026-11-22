@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-22 · Initial booking model and admin
+
+- Added `backend/bookings/` and registered it in `backend/config/settings.py`. The model uses the requested fallback fields, defaults to `Pending`, and also supports `Confirmed`.
+- Registered `Booking` in Django Admin with the client name, event date and time, guest count, and status in the list.
+- Applied `bookings.0001_initial` on Neon development and confirmed it appears as `[X]`. Verified that a synthetic booking can be saved and reloaded, PostgreSQL rejects invalid guest counts and statuses, and Admin enforces booking permissions. Rolled back all synthetic records.
+
 ## 2026-11-22 - Initial migrations on Neon development
 
 - Applied Django's initial migrations to the configured Neon development database with `uv run python manage.py migrate`.
