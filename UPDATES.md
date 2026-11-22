@@ -2,6 +2,14 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-22 · Local Neon PostgreSQL configuration
+
+- Added PostgreSQL dependencies with `uv` and configured `backend/config/settings.py` to prefer the environment’s `DATABASE_URL`, then read `backend/.env`. PostgreSQL connections verify the server certificate and hostname.
+- Added `backend/.env.example` with a fictitious URL and documented local setup in `README.md`. Git confirmed that `backend/.env` is ignored and untracked.
+- Django’s system check passed. Verified configuration precedence, invalid URL handling, TLS options, and the SQLite fallback with dummy inputs.
+- `uv audit --locked` found no known vulnerabilities or adverse project statuses in the nine installed packages.
+- Live connection and initial migrations are pending confirmation that the direct development branch URL has been saved locally.
+
 ## 2026-11-22 · Security rules for contributors and agents
 
 - Added `SECURITY_RULES.md` with requirements for secrets, private data, access control, secure deployment, and verification.

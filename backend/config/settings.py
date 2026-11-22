@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+import certifi
+import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 from django.core.management.utils import get_random_secret_key
+from dotenv import dotenv_values
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,6 +85,25 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+database_url = os.environ.get('DATABASE_URL')
+if database_url is None:
+    database_url = dotenv_values(BASE_DIR / '.env', interpolate=False).get('DATABASE_URL')
+
+if database_url is not None:
+    try:
+        database = dj_database_url.parse(database_url)
+    except ValueError:
+        raise ImproperlyConfigured('DATABASE_URL must be a valid PostgreSQL URL.') from None
+
+    if database['ENGINE'] != 'django.db.backends.postgresql' or not database.get('HOST'):
+        raise ImproperlyConfigured('DATABASE_URL must specify a PostgreSQL server.')
+
+    database.setdefault('OPTIONS', {}).update(
+        sslmode='verify-full',
+        sslrootcert=certifi.where(),
+    )
+    DATABASES['default'] = database
 
 
 # Password validation
