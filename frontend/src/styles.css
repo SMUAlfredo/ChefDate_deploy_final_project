@@ -1,0 +1,129 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #202725;
+  background: #eef2ee;
+  font-synthesis: none;
+  line-height: 1.5;
+}
+
+body { margin: 0; }
+
+.page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.page-heading p, .feedback p { margin: 0; }
+
+.brand {
+  color: #275746;
+  font-weight: 750;
+}
+
+h1 {
+  margin: .4rem 0 .5rem;
+  font-size: clamp(2rem, 7vw, 3.25rem);
+  letter-spacing: -.045em;
+  line-height: 1.1;
+}
+
+.page-heading > p:last-child { color: #4e6158; }
+
+.booking {
+  margin-top: 1.5rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid #d5dfd7;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+fieldset {
+  min-width: 0;
+  border: 0;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+  margin-bottom: .75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.fields {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field--wide { grid-column: 1 / -1; }
+
+label {
+  display: block;
+  margin-bottom: .25rem;
+  font-weight: 600;
+}
+
+.optional { color: #51645b; font-weight: 400; }
+
+input, textarea, button {
+  box-sizing: border-box;
+  font: inherit;
+}
+
+input, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: .55rem .65rem;
+  color: inherit;
+  background: #fafcfb;
+  border: 1px solid #aebeb4;
+  border-radius: .4rem;
+}
+
+textarea { resize: vertical; }
+
+:is(input, textarea, button):focus-visible {
+  outline: 2px solid #27634f;
+  outline-offset: 2px;
+}
+
+[aria-invalid='true'] { border-color: #a02a35; }
+
+.field-hint, .field-error {
+  margin: .25rem 0 0;
+  font-size: .875rem;
+}
+
+.field-hint { color: #51645b; }
+.field-error { color: #92232e; }
+
+button {
+  padding: .65rem 1.25rem;
+  color: #fff;
+  background: #215443;
+  border: 0;
+  border-radius: .4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { background: #173e31; }
+button:disabled { opacity: .7; cursor: wait; }
+
+.feedback {
+  margin: 0 0 1rem;
+  padding: .65rem .85rem;
+  border-radius: .4rem;
+}
+
+.feedback--success { color: #174c36; background: #e6f4ec; }
+.feedback--error { color: #82202a; background: #fcecef; }
+
+@media (max-width: 36rem) {
+  .page { padding-top: 1.75rem; }
+  .fields { grid-template-columns: minmax(0, 1fr); }
+  button { width: 100%; }
+}
