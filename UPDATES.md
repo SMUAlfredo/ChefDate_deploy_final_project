@@ -2,6 +2,13 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-22 · Local booking request form
+
+- Added a minimal React/Vite form for the existing booking API. It disables submission while sending, displays the ID on `201`, and shows field errors on `400` while preserving the entered values.
+- Added a non-cacheable Django CSRF token route. Vite proxies `/api/` on loopback and preserves the browser's host for Django's origin check.
+- The frontend build, npm dependency audit, and six backend tests passed. Chrome verified `201` with a visible ID, `400` with retained values, and the disabled button. The isolated SQLite database contained only the valid booking. An initial run reached an existing server on port 8000 and created a synthetic booking in Neon development. With the owner's approval, the record was matched field by field and removed. The successful run used dedicated ports and verified the SQLite target before sending.
+- For local development, start Django on `127.0.0.1:8000`, then run `npm ci` and `npm run dev` from `frontend/`. Production hosting, payments, and account integration remain pending.
+
 ## 2026-11-22 · Booking creation endpoint
 
 - Added `POST /api/bookings/` with JSON input and the existing Django CSRF protection. It reuses the `Booking` model's validation through a `ModelForm`, creates bookings as `pending`, returns only the ID with `201`, and rejects invalid requests with `400` before saving.
