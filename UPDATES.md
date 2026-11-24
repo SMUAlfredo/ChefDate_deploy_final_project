@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Publish and verify Git history cleanup
+
+- Rewrote the historical Django settings and published the cleaned `main` at `0512242`. That commit also applies the environment and SQLite ignore rules to `main`. Rewrote the local refactor branch while preserving its application tree and restored tracking of the new `origin/main`.
+- Scanned 196 local Git objects for credential patterns, confirmed the original affected commit is absent locally, ran `git fsck --full`, and passed all ten Django tests on in-memory SQLite.
+- GitHub still returned HTTP 200 for the old commit by hash after the branch update. GitHub Support must handle any remaining server-side references or cached views. External key reuse and other clones remain outside the verified scope.
+
 ## 2026-11-24 · Internal booking security verification
 
 - Added checks in `backend/bookings/tests.py` that observe the ORM's parameterized INSERT, confirm Admin escapes displayed customer input, and confirm view-only staff cannot edit a booking. All ten tests passed on in-memory SQLite, including the existing CSRF and Admin permission checks.
