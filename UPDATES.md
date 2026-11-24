@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 ? Remove historical signing key
+
+- Replaced the fixed signing key in historical revisions of backend/config/settings.py with an environment value or a generated local key. The current application tree matched the original after filtering.
+- Checked 25 rewritten commits and all 193 Git objects in the isolated copy. Only the historical Django settings changed, and the full Git integrity check passed.
+- Updated .gitignore on main to exclude environment variants and SQLite sidecar files. Other clones and GitHub-managed references may retain the original history.
+
 ## 2026-11-22 · Local booking request form
 
 - Added a minimal React/Vite form for the existing booking API. It disables submission while sending, displays the ID on `201`, and shows field errors on `400` while preserving the entered values.
