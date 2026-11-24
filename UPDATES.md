@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Group booking routes and form validation
+
+- Moved booking routes to `backend/bookings/urls.py` and kept the project URL configuration focused on routing by app. Moved field validation and error-code formatting to `backend/bookings/forms.py`. The view still handles the JSON request and response.
+- All six booking tests passed on in-memory SQLite, covering CSRF, Admin permissions, malformed input, and successful creation. The diff passed the whitespace check.
+
 ## 2026-11-24 · Separate frontend booking responsibilities
 
 - Kept the React entry point in `frontend/src/main.jsx` and moved form behavior, grouped fields, and API calls to `frontend/src/bookings/`. Both field groups now share the same rendering logic.
