@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Booking input limits and date validation
+
+- Capped JSON booking requests at 32 KiB or Django's lower configured limit in `backend/bookings/views.py`. Oversized bodies are rejected with HTTP 413 before JSON decoding.
+- Limited allergy notes to 1,000 characters in `backend/bookings/forms.py` and `frontend/src/bookings/BookingFields.jsx`. The booking form now validates that dates can be represented in UTC before saving. Existing records and the schema require no migration.
+- Added regressions in `backend/bookings/tests.py`. All eight Django tests on in-memory SQLite, the migration dry run, and the Vite build passed.
+
 ## 2026-11-24 · Git credential review and local file exclusions
 
 - Reviewed 22 commits reachable from local refs, including the local `origin/main` reference, and 87 unique blobs for common credential patterns and sensitive paths. A historical Django signing key appears in `backend/config/settings.py` at `dd9f0ef`. It is absent from the current source and the current shell has no configured key. No other credential matches were found. External reuse was not verified.

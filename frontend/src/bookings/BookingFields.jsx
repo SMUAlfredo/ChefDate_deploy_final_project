@@ -11,7 +11,7 @@ const eventFields = [
   { name: 'event_at', label: 'Date and time', type: 'datetime-local', hint: 'Uses your device’s time zone.' },
   { name: 'guest_count', label: 'Guests', type: 'number', min: 1, step: 1 },
   { name: 'cuisine_type', label: 'Preferred cuisine', maxLength: 100 },
-  { name: 'allergy_notes', label: 'Allergy notes', multiline: true, wide: true },
+  { name: 'allergy_notes', label: 'Allergy notes', maxLength: 1000, multiline: true, wide: true },
 ];
 
 const fieldMessages = {

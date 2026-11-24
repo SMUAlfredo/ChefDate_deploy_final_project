@@ -66,6 +66,24 @@ class BookingCreationTests(TestCase):
         self.assertEqual(response.json(), {'id': booking.pk})
         self.assertEqual(booking.allergy_notes, notes)
 
+    def test_allergy_notes_accept_the_limit_and_reject_longer_values(self):
+        notes = 'a' * 1000
+        response = self.post_booking({**self.payload, 'allergy_notes': notes})
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Booking.objects.get().allergy_notes, notes)
+
+        response = self.post_booking({**self.payload, 'allergy_notes': notes + 'a'})
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {'errors': {'allergy_notes': ['max_length']}})
+        self.assertEqual(Booking.objects.count(), 1)
+
+    def test_large_request_is_rejected_before_decoding(self):
+        response = self.post_booking(' ' * (32 * 1024 + 1))
+
+        self.assertEqual(response.status_code, 413)
+        self.assertEqual(response.json(), {'error': 'request_too_large'})
+        self.assertFalse(Booking.objects.exists())
+
     def test_missing_required_field_does_not_save(self):
         del self.payload['event_address']
         response = self.post_booking(self.payload)
@@ -78,6 +96,7 @@ class BookingCreationTests(TestCase):
         for field, value in (
             ('customer_email', 'not-an-email'),
             ('event_at', 'not-a-date'),
+            ('event_at', '9999-12-31T23:59:59-01:00'),
             ('guest_count', 0),
         ):
             with self.subTest(field=field):
