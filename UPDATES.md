@@ -2,9 +2,14 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
-## 2026-11-24 · Sprint One onboarding and acceptance checks
+## 2026-11-24 · Clarify the scope of the assigned tasks
 
-- Updated `README.md` and `CONTRIBUTING.md` with the shared Sprint One branch, locked installs, local SQLite and Neon setup, Vite startup, and the booking review steps.
+- Corrected the scope labels in `README.md`, `CONTRIBUTING.md`, and the previous `UPDATES.md` entry. The seven reviewed subtasks are an individual assignment. The team still needs to confirm local setup on each collaborator's machine for REQ-07.
+- Reviewed the documentation diff and checked the PowerShell examples.
+
+## 2026-11-24 · Onboarding and verification of assigned subtasks
+
+- Updated `README.md` and `CONTRIBUTING.md` with the shared development branch, locked installs, local SQLite and Neon setup, Vite startup, and the booking review steps.
 - Verified a fresh clone from the private repository, both locked installs, SQLite migrations, ten Django tests, and the Vite build. In Chrome, a server field error preserved the input, a valid request displayed its ID and cleared the form, and an authorized staff account opened the single Pending request in Admin. Browser checks used synthetic data and isolated SQLite.
 - GitHub reported two direct collaborators besides the owner and no pending invitations. Each collaborator still needs to confirm setup on their own machine. Neon development migration evidence comes from the November 22 entry.
 

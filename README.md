@@ -1,6 +1,6 @@
 # ChefDate
 
-ChefDate runs locally with a Django 5.2 booking API and a React/Vite request form. See [CONTRIBUTING.md](CONTRIBUTING.md) for the Sprint One checkout and team setup.
+ChefDate runs locally with a Django 5.2 booking API and a React/Vite request form. See [CONTRIBUTING.md](CONTRIBUTING.md) for the shared development branch and team setup.
 
 ## Run locally on Windows
 

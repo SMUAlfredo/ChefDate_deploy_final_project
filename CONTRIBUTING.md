@@ -4,14 +4,14 @@ These instructions use PowerShell on Windows. You need Git, access to the privat
 
 ## 1. Clone and open the project
 
-Sign in to GitHub with the account that has repository access. For Sprint One, run these commands from the folder where you keep your projects.
+Sign in to GitHub with the account that has repository access. Run these commands from the folder where you keep your projects.
 
 ```powershell
 git clone --branch refactor/chefdate-structure https://github.com/SMUAlfredo/ChefDate_deploy_final_project.git
 Set-Location .\ChefDate_deploy_final_project
 ```
 
-If you cloned before the Git history cleanup, use a fresh clone for Sprint One and keep the older checkout until you have recovered any local work. Open the new checkout in your editor. The Django entry point is `backend/manage.py`.
+If you cloned before the Git history cleanup, use a fresh clone and keep the older checkout until you have recovered any local work. Open the new checkout in your editor. The Django entry point is `backend/manage.py`.
 
 ## 2. Set up the backend
 
@@ -88,13 +88,13 @@ Keep Django running on port 8000. In a second PowerShell terminal, follow the [V
 
 ## 6. Open your first pull request
 
-Before editing, return to the repository root with `Set-Location ..` if you're still in `backend/` or `frontend/`. Check for existing work with `git status --short`. Once the tree is clean, update the shared Sprint One branch and create a branch that describes your change.
+Before editing, return to the repository root with `Set-Location ..` if you're still in `backend/` or `frontend/`. Check for existing work with `git status --short`. Once the tree is clean, update the shared development branch and create a branch that describes your change.
 
 ```powershell
 git switch refactor/chefdate-structure
-if ($LASTEXITCODE -ne 0) { throw 'Could not switch to the Sprint One branch.' }
+if ($LASTEXITCODE -ne 0) { throw 'Could not switch to the shared development branch.' }
 git pull --ff-only origin refactor/chefdate-structure
-if ($LASTEXITCODE -ne 0) { throw 'Could not fast-forward the Sprint One branch.' }
+if ($LASTEXITCODE -ne 0) { throw 'Could not fast-forward the shared development branch.' }
 git switch -c feature/first-change
 ```
 
@@ -146,4 +146,4 @@ Open the repository's pull requests page.
 Start-Process 'https://github.com/SMUAlfredo/ChefDate_deploy_final_project/pulls'
 ```
 
-Select **New pull request**, set the base branch to `refactor/chefdate-structure` for Sprint One and the compare branch to your feature branch. Review the changed files, then describe what changed, what you verified, and any migrations before submitting. [GitHub pull request guide](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request)
+Select **New pull request**, set the base branch to `refactor/chefdate-structure` and the compare branch to your feature branch. Review the changed files, then describe what changed, what you verified, and any migrations before submitting. [GitHub pull request guide](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request)
