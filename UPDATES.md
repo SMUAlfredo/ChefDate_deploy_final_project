@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Internal booking security verification
+
+- Added checks in `backend/bookings/tests.py` that observe the ORM's parameterized INSERT, confirm Admin escapes displayed customer input, and confirm view-only staff cannot edit a booking. All ten tests passed on in-memory SQLite, including the existing CSRF and Admin permission checks.
+- The locked Python and npm audits reported no known dependency vulnerabilities. A credential-pattern scan of the compiled frontend found no matches.
+- Django's deployment check on isolated development-style settings reported six warnings covering HSTS, HTTPS redirection, secure session and CSRF cookies, debug mode, and allowed hosts. Production settings, login and booking abuse limits, and verification against the target environment remain pending. Neon was not used.
+
 ## 2026-11-24 · Booking input limits and date validation
 
 - Capped JSON booking requests at 32 KiB or Django's lower configured limit in `backend/bookings/views.py`. Oversized bodies are rejected with HTTP 413 before JSON decoding.
