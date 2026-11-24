@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Git credential review and local file exclusions
+
+- Reviewed 22 commits reachable from local refs, including the local `origin/main` reference, and 87 unique blobs for common credential patterns and sensitive paths. A historical Django signing key appears in `backend/config/settings.py` at `dd9f0ef`. It is absent from the current source and the current shell has no configured key. No other credential matches were found. External reuse was not verified.
+- Updated `.gitignore` to exclude environment variants and SQLite sidecar files. Verified the ignore rules, the environment template exception, and the absence of the tested sensitive paths from the index.
+- If the historical key was reused elsewhere, rotate it and remove it from any signing fallback list. Any history rewrite requires coordination with the repository owner.
+
 ## 2026-11-24 · Source file comments
 
 - Added a final comment to all 24 tracked Python, JavaScript, JSX, CSS, and HTML files under `backend/` and `frontend/`.
