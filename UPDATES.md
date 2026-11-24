@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Separate frontend booking responsibilities
+
+- Kept the React entry point in `frontend/src/main.jsx` and moved form behavior, grouped fields, and API calls to `frontend/src/bookings/`. Both field groups now share the same rendering logic.
+- The production build passed. A Node smoke check with synthetic responses verified the CSRF request, booking POST, success, field and generic errors, and request failure handling. Browser interaction was not rerun.
+
 ## 2026-11-24 · Code structure and commit conventions
 
 - Updated `AGENTS.md` to require focused modules, readable code, and one verified commit per coherent change.
