@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Sprint One onboarding and acceptance checks
+
+- Updated `README.md` and `CONTRIBUTING.md` with the shared Sprint One branch, locked installs, local SQLite and Neon setup, Vite startup, and the booking review steps.
+- Verified a fresh clone from the private repository, both locked installs, SQLite migrations, ten Django tests, and the Vite build. In Chrome, a server field error preserved the input, a valid request displayed its ID and cleared the form, and an authorized staff account opened the single Pending request in Admin. Browser checks used synthetic data and isolated SQLite.
+- GitHub reported two direct collaborators besides the owner and no pending invitations. Each collaborator still needs to confirm setup on their own machine. Neon development migration evidence comes from the November 22 entry.
+
 ## 2026-11-24 · GitHub purge follow-up
 
 - Verified through GitHub's public API that the original affected commit still returned HTTP 200. The repository reported zero forks and no pull requests.

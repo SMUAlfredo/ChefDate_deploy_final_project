@@ -1,18 +1,17 @@
 # Contributing to ChefDate
 
-These instructions use PowerShell on Windows. You need Git, VS Code with the `code` command on your PATH, and access to the ChefDate GitHub repository and a Neon development branch. Follow [SECURITY_RULES.md](SECURITY_RULES.md) and read [UPDATES.md](UPDATES.md) for recent changes.
+These instructions use PowerShell on Windows. You need Git, access to the private ChefDate repository, and a Neon development branch for PostgreSQL work. Follow [SECURITY_RULES.md](SECURITY_RULES.md) and read [UPDATES.md](UPDATES.md) for recent changes. The [README](README.md) also covers a local SQLite setup.
 
 ## 1. Clone and open the project
 
-Run these commands from the folder where you keep your projects.
+Sign in to GitHub with the account that has repository access. For Sprint One, run these commands from the folder where you keep your projects.
 
 ```powershell
-git clone https://github.com/SMUAlfredo/ChefDate_deploy_final_project.git
+git clone --branch refactor/chefdate-structure https://github.com/SMUAlfredo/ChefDate_deploy_final_project.git
 Set-Location .\ChefDate_deploy_final_project
-code .
 ```
 
-The repository root contains `.gitignore` and `UPDATES.md`. The Django entry point is `backend/manage.py`.
+If you cloned before the Git history cleanup, use a fresh clone for Sprint One and keep the older checkout until you have recovered any local work. Open the new checkout in your editor. The Django entry point is `backend/manage.py`.
 
 ## 2. Set up the backend
 
@@ -44,10 +43,9 @@ From `backend/`, create `.env` from the tracked example if it doesn't exist, the
 if (-not (Test-Path -LiteralPath .env)) {
     Copy-Item -LiteralPath .env.example -Destination .env
 }
-code .env
 ```
 
-Set `DATABASE_URL` in `backend/.env` and save the file. Replace the entire fictitious value below with the URL you copied. Keep the actual URL and credentials out of commits, pull requests, and shared logs.
+Open `backend/.env` in your editor, set `DATABASE_URL`, and save the file. Replace the entire fictitious value below with the URL you copied. Keep the actual URL and credentials out of commits, pull requests, and shared logs.
 
 ```dotenv
 DATABASE_URL=postgresql://example_user:example_password@example.invalid/example_db?sslmode=verify-full
@@ -84,15 +82,19 @@ uv run python manage.py runserver 127.0.0.1:8000
 
 Open [Django Admin](http://127.0.0.1:8000/admin/) and sign in with your development account. Use synthetic data when testing. Press `Ctrl+C` to stop the server.
 
-## 5. Open your first pull request
+## 5. Start the booking frontend
 
-Before editing, return to the repository root with `Set-Location ..` if you're still in `backend/`. Check for existing work with `git status --short`. Once the tree is clean, update `main` and create a branch with a name that describes your change.
+Keep Django running on port 8000. In a second PowerShell terminal, follow the [Vite setup](README.md#start-the-frontend). Open the booking form on port 5173 and submit a synthetic request. Check that the confirmation shows a booking ID and that the request appears as Pending in Django Admin.
+
+## 6. Open your first pull request
+
+Before editing, return to the repository root with `Set-Location ..` if you're still in `backend/` or `frontend/`. Check for existing work with `git status --short`. Once the tree is clean, update the shared Sprint One branch and create a branch that describes your change.
 
 ```powershell
-git switch main
-if ($LASTEXITCODE -ne 0) { throw 'Could not switch to main.' }
-git pull --ff-only origin main
-if ($LASTEXITCODE -ne 0) { throw 'Could not fast-forward main.' }
+git switch refactor/chefdate-structure
+if ($LASTEXITCODE -ne 0) { throw 'Could not switch to the Sprint One branch.' }
+git pull --ff-only origin refactor/chefdate-structure
+if ($LASTEXITCODE -ne 0) { throw 'Could not fast-forward the Sprint One branch.' }
 git switch -c feature/first-change
 ```
 
@@ -144,4 +146,4 @@ Open the repository's pull requests page.
 Start-Process 'https://github.com/SMUAlfredo/ChefDate_deploy_final_project/pulls'
 ```
 
-Select **New pull request**, set the base branch to `main` and the compare branch to your feature branch. Review the changed files, then describe what changed, what you verified, and any migrations before submitting. [GitHub pull request guide](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request)
+Select **New pull request**, set the base branch to `refactor/chefdate-structure` for Sprint One and the compare branch to your feature branch. Review the changed files, then describe what changed, what you verified, and any migrations before submitting. [GitHub pull request guide](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request)
