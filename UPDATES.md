@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Agent rules for the remaining Sprint One work
+
+- Expanded `AGENTS.md` to protect the verified booking baseline, focus work on the assigned story, keep new modules small, and document the acceptance criteria for US-05 through US-10.
+- Defined safeguards for shared infrastructure and migration targets, isolated testing, security checks, scoped commits, and handoff records. Reviewed the documentation diff, references, and story list.
+- The remaining stories and the collaborator setup confirmations for REQ-07 are pending.
+
 ## 2026-11-24 · Clarify the scope of the assigned tasks
 
 - Corrected the scope labels in `README.md`, `CONTRIBUTING.md`, and the previous `UPDATES.md` entry. The seven reviewed subtasks are an individual assignment. The team still needs to confirm local setup on each collaborator's machine for REQ-07.
