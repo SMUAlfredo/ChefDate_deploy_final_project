@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Code structure and commit conventions
+
+- Updated `AGENTS.md` to require focused modules, readable code, and one verified commit per coherent change.
+- Reviewed the instructions and checked the documentation diff for whitespace errors. The backend and frontend refactors follow in separate commits.
+
 ## 2026-11-22 · Local booking request form
 
 - Added a minimal React/Vite form for the existing booking API. It disables submission while sending, displays the ID on `201`, and shows field errors on `400` while preserving the entered values.
