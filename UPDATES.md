@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Separate shared, local, and test Django settings
+
+- Moved shared Django settings to `backend/config/settings_base.py`. Local settings still configure PostgreSQL or the SQLite fallback. Test settings now select in-memory SQLite directly without patching the environment or loading local database settings.
+- All six Django tests passed. The migration dry run found no changes. Synthetic configuration checks verified URL precedence, invalid URL handling, SQLite fallback, PostgreSQL certificate and hostname verification settings, and test isolation without connecting to Neon.
+
 ## 2026-11-24 · Group booking routes and form validation
 
 - Moved booking routes to `backend/bookings/urls.py` and kept the project URL configuration focused on routing by app. Moved field validation and error-code formatting to `backend/bookings/forms.py`. The view still handles the JSON request and response.
