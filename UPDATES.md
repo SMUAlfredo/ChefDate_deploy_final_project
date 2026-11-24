@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · GitHub purge follow-up
+
+- Verified through GitHub's public API that the original affected commit still returned HTTP 200. The repository reported zero forks and no pull requests.
+- Opened the GitHub Support portal for the server-side purge. Submission requires an authenticated account and remains pending.
+
 ## 2026-11-24 · Publish and verify Git history cleanup
 
 - Rewrote the historical Django settings and published the cleaned `main` at `0512242`. That commit also applies the environment and SQLite ignore rules to `main`. Rewrote the local refactor branch while preserving its application tree and restored tracking of the new `origin/main`.
