@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Security rules for the remaining Sprint One work
+
+- Aligned `SECURITY_RULES.md` with `AGENTS.md` on the verified baseline, authorized infrastructure changes, safe migration targets, isolated tests, and Git review.
+- Added security controls for US-05 through US-10, including draft behavior, staff permissions, server-side pricing and validation, simulated payment data, and hosted CSRF verification. Checked local links, story coverage, and the documentation diff.
+- Implementation and security verification of the remaining stories are pending.
+
 ## 2026-11-24 · Agent rules for the remaining Sprint One work
 
 - Expanded `AGENTS.md` to protect the verified booking baseline, focus work on the assigned story, keep new modules small, and document the acceptance criteria for US-05 through US-10.
