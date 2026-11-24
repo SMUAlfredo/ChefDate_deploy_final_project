@@ -110,3 +110,4 @@ class BookingCreationTests(TestCase):
         self.assertEqual(cross_origin.status_code, 403)
         self.assertEqual(self.client.get(self.url).status_code, 405)
         self.assertFalse(Booking.objects.exists())
+# VA

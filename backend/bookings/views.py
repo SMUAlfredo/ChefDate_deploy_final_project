@@ -38,3 +38,4 @@ def create_booking(request):
 
     booking = form.save()
     return JsonResponse({'id': booking.pk}, status=201)
+# VA

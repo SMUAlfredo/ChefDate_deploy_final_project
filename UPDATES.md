@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-24 · Source file comments
+
+- Added a final comment to all 24 tracked Python, JavaScript, JSX, CSS, and HTML files under `backend/` and `frontend/`.
+- Verified the final line of each file and reviewed the diff. All six Django tests passed on in-memory SQLite, and the Vite build passed.
+
 ## 2026-11-24 · Separate shared, local, and test Django settings
 
 - Moved shared Django settings to `backend/config/settings_base.py`. Local settings still configure PostgreSQL or the SQLite fallback. Test settings now select in-memory SQLite directly without patching the environment or loading local database settings.

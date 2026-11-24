@@ -6,3 +6,4 @@ urlpatterns = [
     path('', create_booking, name='booking-create'),
     path('csrf/', booking_csrf_token, name='booking-csrf'),
 ]
+# VA

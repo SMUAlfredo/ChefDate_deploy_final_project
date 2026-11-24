@@ -38,3 +38,4 @@ class BookingForm(forms.ModelForm):
             field: [error.code for error in errors]
             for field, errors in self.errors.as_data().items()
         }
+# VA
