@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Chef catalog model
+
+- Added `Chef` in `backend/catalog/models.py` and generated `backend/catalog/migrations/0002_chef.py`. Each chef has a display name, a unique slug, a required cuisine, a decimal base price in CAD per booking, and a decimal demo rating. Django protects cuisines referenced by chefs from deletion.
+- Verified with `config.settings_test` on in-memory SQLite that a chef saves with a cuisine and retains its slug after a display name edit. The database accepted a zero price and ratings of 1.0 and 5.0, and rejected duplicate slugs, negative prices, ratings outside that range, and missing cuisines. Applying, rolling back, and reapplying the Chef migration preserved the existing cuisine row.
+- All ten booking tests passed, and the migration consistency check found no pending model changes. Fictional catalog records, the catalog endpoint, frontend integration, and Neon verification remain pending.
+
 ## 2026-11-25 · Cuisine catalog model
 
 - Added `Cuisine` in `backend/catalog/models.py` with a display name and a unique slug. Registered the app in `backend/config/settings_base.py` and generated `backend/catalog/migrations/0001_initial.py`.
