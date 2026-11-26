@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-26 · Verify the read-only add-on catalog
+
+- Reviewed the existing catalog implementation in `backend/catalog/add_ons.py`, `backend/catalog/add_on_views.py`, `backend/catalog/urls.py`, and `backend/catalog/test_add_ons.py`. `GET /api/catalog/add-ons/` returns `cleaning` at CAD 50.00 and `waitstaff` at CAD 80.00 with two-decimal price strings. The fixed prices are reusable by future server-side pricing.
+- Ran `uv run --locked python manage.py test --settings=config.settings_test` from `backend/`. All 21 tests passed on in-memory SQLite, including the add-on response and POST rejection, the existing cuisine catalog, and booking submission. Server-side pricing remains pending.
+
 ## 2026-11-26 · Set add-on quantities by guest count
 
 - Updated `frontend/src/bookings/BookingAddOns.jsx`, `frontend/src/bookings/bookingAddOns.css`, and `frontend/src/bookings/BookingForm.jsx` to show the five-guest coverage and unit price and let users increase or decrease Cleaning and Waitstaff independently. Each add-on is optional and its maximum rounds the guest count up to the next group of five. Reducing the guest count caps existing selections at the new maximum.
