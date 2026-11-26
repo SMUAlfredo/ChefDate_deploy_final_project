@@ -7,6 +7,12 @@ Entries are listed newest first. Each entry summarizes the change, the relevant 
 - Added `backend/catalog/migrations/0001_initial_catalog.py`. New databases create `Cuisine` and `Chef` in one migration. Kept both original catalog migrations for existing databases and retained the booking migration in its own app.
 - Verified fresh, partially migrated, and fully migrated histories in isolated SQLite with `config.settings_test`. Existing rows were preserved, the fresh catalog seeded six cuisines and 18 chefs, Django found no missing migrations, and all ten booking tests passed. Verification on a shared database remains pending.
 
+## 2026-11-25 · Demo catalog seed command
+
+- Added `seed_demo_catalog.py` under `backend/catalog/management/commands/` and the two management command package markers. The command seeds six cuisines and three fictional chefs per cuisine using stable slugs and decimal prices and ratings. Matching records are reused, and a conflicting slug aborts the entire transaction.
+- Verified on in-memory SQLite with `config.settings_test` that the first run created six cuisines and 18 chefs, the second created zero records, and late conflicts on both cuisine and chef slugs rolled back earlier inserts. Unrelated catalog records, bookings, and users were preserved. All ten booking tests passed.
+- The catalog endpoint, React integration, and Neon verification remain pending.
+
 ## 2026-11-25 · Chef catalog model
 
 - Added `Chef` in `backend/catalog/models.py` and generated `backend/catalog/migrations/0002_chef.py`. Each chef has a display name, a unique slug, a required cuisine, a decimal base price in CAD per booking, and a decimal demo rating. Django protects cuisines referenced by chefs from deletion.
