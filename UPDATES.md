@@ -2,6 +2,13 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Save an optional preferred chef in Django
+
+- Added a nullable `Booking.preferred_chef` relation in `backend/bookings/models.py` and migration `backend/bookings/migrations/0002_preferred_chef.py`. The migration depends on the catalog migration that creates chefs. Removing a chef clears the preference and preserves the booking.
+- Updated `backend/bookings/forms.py` to accept `preferred_chef_slug` and resolve it against the catalog. React sends the cuisine display name in `cuisine_type`, so the form compares display names case-insensitively. Unknown slugs and cuisine mismatches return field-level errors. The Pending default, existing `201` response, and booking requests without a chef preference were preserved.
+- Added API coverage in `backend/bookings/test_preferred_chef.py`. With `config.settings_test` on in-memory SQLite, all 19 tests passed, the migration check found no missing migrations, and apply, rollback, and reapply preserved an existing booking. Sending the slug from React and applying the migration outside the test environment remain pending.
+- Rechecked the endpoint from PowerShell using the Django test client with CSRF enforcement and the seeded in-memory catalog. A matching chef and an omitted preference returned `201`, unknown and mismatched chefs returned `400`, and a request without CSRF returned `403`. Rejected requests created no bookings.
+
 ## 2026-11-25 · Preferred chef in the booking draft
 
 - Updated `frontend/src/App.jsx` and `frontend/src/cuisines/CuisinesPage.jsx` to open each cuisine's chefs from the nested catalog response. Added `CuisineChefs.jsx` and `chefs.css` under `frontend/src/cuisines/` to show each chef's name, CAD base price per booking, demo rating, and Select chef button.
