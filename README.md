@@ -10,17 +10,54 @@ You need Python 3.14 or later, `uv`, and Node.js 20.19 or later in the 20.x seri
 winget install --id=astral-sh.uv -e
 ```
 
-For a local SQLite checkout, run this from the repository root. The check stops the setup if a database URL or local environment file is present.
+### Prepare the local SQLite database
+
+Run this from the repository root in a checkout configured for local SQLite. The migration command creates `backend/db.sqlite3` if needed and applies pending migrations to it.
 
 ```powershell
+# Enter the backend directory, where manage.py is located.
 Set-Location .\backend
+
+# Stop if the shell or checkout could select a configured PostgreSQL database.
 if ((Test-Path Env:DATABASE_URL) -or (Test-Path -LiteralPath .env)) {
     throw 'A database configuration is present. Use the Neon setup below or a fresh checkout for SQLite.'
 }
+
+# Install the locked dependencies and check the Django configuration.
 uv sync --locked
-uv run python manage.py check
-uv run python manage.py migrate
-uv run python manage.py runserver 127.0.0.1:8000
+if ($LASTEXITCODE -ne 0) { throw 'Backend dependency setup failed.' }
+uv run --locked python manage.py check --settings=config.settings
+if ($LASTEXITCODE -ne 0) { throw 'Django configuration check failed.' }
+
+# Create the local SQLite file and apply the schema migrations.
+uv run --locked python manage.py migrate --settings=config.settings
+if ($LASTEXITCODE -ne 0) { throw 'Local SQLite migration failed.' }
+
+# Optional: Uncomment to add six cuisines and eighteen fictional chefs after migration.
+# uv run --locked python manage.py seed_demo_catalog --settings=config.settings
+```
+
+To verify migration and seeding with a temporary database, run this PowerShell block from `backend/`. The `config.settings_test` settings select in-memory SQLite. Both operations run in one Django process so the seed can use the tables created by the migrations. The database is discarded when the process exits.
+
+```powershell
+$chefDateCatalogSmokeTest = @'
+from django.core.management import call_command
+
+# Create the tables in the in-memory SQLite database.
+call_command('migrate', interactive=False)
+
+# Populate the tables with fictional demo records.
+call_command('seed_demo_catalog')
+'@
+uv run --locked python manage.py shell --settings=config.settings_test --command $chefDateCatalogSmokeTest
+```
+
+### Start the backend
+
+After preparing the local database, start Django from `backend/`.
+
+```powershell
+uv run --locked python manage.py runserver 127.0.0.1:8000 --settings=config.settings
 ```
 
 ### Start the frontend

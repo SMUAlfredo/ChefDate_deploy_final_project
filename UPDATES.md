@@ -7,6 +7,11 @@ Entries are listed newest first. Each entry summarizes the change, the relevant 
 - Added `backend/catalog/migrations/0001_initial_catalog.py`. New databases create `Cuisine` and `Chef` in one migration. Kept both original catalog migrations for existing databases and retained the booking migration in its own app.
 - Verified fresh, partially migrated, and fully migrated histories in isolated SQLite with `config.settings_test`. Existing rows were preserved, the fresh catalog seeded six cuisines and 18 chefs, Django found no missing migrations, and all ten booking tests passed. Verification on a shared database remains pending.
 
+## 2026-11-25 · Local SQLite setup instructions
+
+- Organized `README.md` into a local SQLite setup section and a separate Django startup section. Added comments explaining the database guard, dependency setup, migrations, and optional demo seed. Included a temporary SQLite example that migrates and seeds in one Django process.
+- Ran the documented in-memory example and verified it created six cuisines and 18 chefs. Verified that the persistent setup stops when a PostgreSQL URL is configured. The seed command must be present in the checkout to run either seed example.
+
 ## 2026-11-25 · Demo catalog seed command
 
 - Added `seed_demo_catalog.py` under `backend/catalog/management/commands/` and the two management command package markers. The command seeds six cuisines and three fictional chefs per cuisine using stable slugs and decimal prices and ratings. Matching records are reused, and a conflicting slug aborts the entire transaction.
