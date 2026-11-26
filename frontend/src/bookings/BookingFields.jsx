@@ -21,6 +21,8 @@ const fieldMessages = {
   min_value: 'Enter a number of guests greater than zero.',
   max_value: 'Enter a smaller number.',
   max_length: 'Shorten this value and try again.',
+  unknown_chef: 'This chef is no longer available. Choose another chef.',
+  cuisine_mismatch: 'Choose a chef who matches the preferred cuisine.',
 };
 
 function FieldErrors({ id, errors }) {
@@ -59,21 +61,23 @@ const sections = [
   { legend: 'Event details', fields: eventFields },
 ];
 
-function PreferredCuisine({ label, name, chef, needsCuisine, errors, onBrowse }) {
+function PreferredCuisine({ label, name, chef, chefErrors, needsCuisine, errors, onBrowse }) {
   const errorId = needsCuisine || errors?.length ? 'cuisine_type-error' : undefined;
+  const chefErrorId = chefErrors?.length ? 'preferred_chef_slug-error' : undefined;
 
   return (
     <div className="field">
       <button
         type="button"
         className="browse-cuisines"
-        aria-invalid={errorId ? true : undefined}
-        aria-describedby={errorId}
+        aria-invalid={errorId || chefErrorId ? true : undefined}
+        aria-describedby={[errorId, chefErrorId].filter(Boolean).join(' ') || undefined}
         onClick={onBrowse}
       >
         {name ? `${label}: ${name}` : label}
       </button>
-      {chef && <p className="field-hint">Preferred chef: {chef} (draft only)</p>}
+      {chef && <p className="field-hint">Preferred chef: {chef}</p>}
+      {chefErrorId && <FieldErrors id={chefErrorId} errors={chefErrors} />}
       {needsCuisine
         ? <p className="field-error" id={errorId} role="alert">Choose a preferred cuisine.</p>
         : errorId && <FieldErrors id={errorId} errors={errors} />}
@@ -81,7 +85,7 @@ function PreferredCuisine({ label, name, chef, needsCuisine, errors, onBrowse })
   );
 }
 
-export function BookingFields({ errors, preferredCuisine, preferredChef, needsCuisine, onBrowseCuisines }) {
+export function BookingFields({ errors, preferredCuisine, preferredChef, chefErrors, needsCuisine, onBrowseCuisines }) {
   return sections.map(({ legend, fields }) => (
     <fieldset key={legend}>
       <legend>{legend}</legend>
@@ -92,6 +96,7 @@ export function BookingFields({ errors, preferredCuisine, preferredChef, needsCu
             label={field.label}
             name={preferredCuisine}
             chef={preferredChef}
+            chefErrors={chefErrors}
             needsCuisine={needsCuisine}
             errors={errors?.[field.name]}
             onBrowse={onBrowseCuisines}

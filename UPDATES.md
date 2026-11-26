@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Submit the selected chef from React
+
+- Updated `frontend/src/App.jsx` and `frontend/src/bookings/BookingForm.jsx` to send the selected `preferred_chef_slug` through the existing booking client. `cuisine_type` still carries the cuisine display name. Changing cuisines clears an incompatible chef, and requests without a selection omit the slug.
+- Updated `frontend/src/bookings/BookingFields.jsx` to display chef field errors beside the picker. Correcting the selection clears the previous chef error, while a successful submission still displays the returned booking ID.
+- Passed `npm ci --offline` and `npm run build` in an isolated frontend copy. In Chrome with seeded Django and in-memory SQLite, verified that the returned booking ID referred to a row with the selected chef, that an omitted slug saved a booking with no preference, and that a stale selection produced a real `400` with no booking write. The draft survived the error and resubmission with another chef succeeded. Hosted verification remains pending.
+
 ## 2026-11-25 · Save an optional preferred chef in Django
 
 - Added a nullable `Booking.preferred_chef` relation in `backend/bookings/models.py` and migration `backend/bookings/migrations/0002_preferred_chef.py`. The migration depends on the catalog migration that creates chefs. Removing a chef clears the preference and preserves the booking.

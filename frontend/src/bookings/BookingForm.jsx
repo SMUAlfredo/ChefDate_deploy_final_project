@@ -6,6 +6,9 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [needsCuisine, setNeedsCuisine] = useState(false);
+  const fields = feedback?.fields;
+  const chefErrors = feedback?.chefSlug === preferredChef?.slug ? fields?.preferred_chef_slug : undefined;
+  const hasFieldErrors = chefErrors?.length || Object.keys(fields ?? {}).some((name) => name !== 'preferred_chef_slug');
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -20,6 +23,7 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
 
     const payload = Object.fromEntries(new FormData(form));
     payload.cuisine_type = preferredCuisine;
+    if (preferredChef?.slug) payload.preferred_chef_slug = preferredChef.slug;
     const eventDate = new Date(payload.event_at);
     if (Number.isNaN(eventDate.getTime())) {
       setFeedback({ type: 'error', fields: { event_at: ['invalid'] } });
@@ -34,7 +38,7 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
     try {
       const result = await createBooking(payload);
       if ('errors' in result) {
-        setFeedback({ type: 'error', fields: result.errors });
+        setFeedback({ type: 'error', fields: result.errors, chefSlug: payload.preferred_chef_slug });
         return;
       }
 
@@ -63,9 +67,9 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
             <p>Booking ID: {feedback.id}</p>
           </div>
         )}
-        {feedback?.type === 'error' && (
+        {feedback?.type === 'error' && (!fields || hasFieldErrors) && (
           <p className="feedback feedback--error" role="alert">
-            {feedback.fields ? 'Check the highlighted fields and try again.' : 'Check the form and try again.'}
+            {fields ? 'Check the highlighted fields and try again.' : 'Check the form and try again.'}
           </p>
         )}
         {feedback?.type === 'unavailable' && (
@@ -73,9 +77,10 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
         )}
 
         <BookingFields
-          errors={feedback?.fields}
+          errors={fields}
           preferredCuisine={preferredCuisine}
-          preferredChef={preferredChef}
+          preferredChef={preferredChef?.name}
+          chefErrors={chefErrors}
           needsCuisine={needsCuisine && !preferredCuisine}
           onBrowseCuisines={onBrowseCuisines}
         />

@@ -40,7 +40,7 @@ export function App() {
       <BookingForm
         hidden={browsingCuisines}
         preferredCuisine={preferences?.cuisine.name ?? ''}
-        preferredChef={preferences?.chef?.name}
+        preferredChef={preferences?.chef}
         onBrowseCuisines={openCuisines}
         onClearCuisine={() => setPreferences(null)}
       />
