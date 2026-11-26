@@ -40,9 +40,8 @@ export function BookingForm() {
   }
 
   return (
-    <main className="page">
+    <main id="booking" className="page">
       <header className="page-heading">
-        <p className="brand">ChefDate</p>
         <h1>Request a booking</h1>
         <p>Tell us about your event and how we can reach you.</p>
       </header>

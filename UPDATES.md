@@ -2,6 +2,13 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Shared React navigation
+
+- Added `frontend/src/SiteHeader.jsx` and mounted it above the booking form from `frontend/src/main.jsx`. Moved the ChefDate label out of `frontend/src/bookings/BookingForm.jsx` and added header styles in `frontend/src/styles.css`. Book links to the form and is marked current. Profile and Booking Status display as unavailable.
+- `npm ci` and `npm run build` passed in an isolated copy after a locked dependency interrupted the checkout install. Restored the missing dependency files, and the checkout build also passed. In local Chrome at desktop and 375-pixel widths, verified the header, Book link, and draft preservation. With synthetic mock API responses, verified required-field validation, retained input on a field error, and confirmation with form reset after success.
+- Rebuilt the checkout and repeated the Chrome check against Django on isolated in-memory SQLite. The real booking endpoint returned a field error with `400`, accepted the corrected synthetic request with `201`, and the form displayed the booking ID and reset.
+- Profile and Booking Status destinations, cuisine browsing, image mapping, and chef selection remain pending.
+
 ## 2026-11-25 · Read-only catalog API
 
 - Added `GET /api/catalog/` in `backend/catalog/views.py` and `backend/catalog/urls.py`, with a route in `backend/config/urls.py`. The response groups chefs by cuisine, orders both levels by slug, and returns CAD prices as two-decimal strings and demo ratings as numbers.
