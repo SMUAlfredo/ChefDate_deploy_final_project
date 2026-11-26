@@ -1,0 +1,31 @@
+.chef-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+}
+
+.chef-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chef-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  border: 1px solid #d5dfd7;
+  border-radius: .75rem;
+  background: #fff;
+}
+
+.chef-list h2 { margin: 0; font-size: 1.125rem; }
+.chef-list dl { margin: .75rem 0 1rem; }
+.chef-list dl div + div { margin-top: .5rem; }
+.chef-list dt { color: #4e6158; font-size: .875rem; }
+.chef-list dd { margin: 0; }
+.chef-list button { margin-top: auto; }

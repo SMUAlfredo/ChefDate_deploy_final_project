@@ -1,9 +1,6 @@
-import os
-from unittest.mock import patch
+"""Test settings with an isolated, in-memory database."""
 
-# Load shared Django settings without reading the local Neon credentials.
-with patch.dict(os.environ, {'DATABASE_URL': 'postgresql://tests.invalid/chefdate'}):
-    from .settings import *
+from .settings_base import *
 
 DATABASES = {
     'default': {
@@ -11,3 +8,4 @@ DATABASES = {
         'NAME': ':memory:',
     },
 }
+# VA

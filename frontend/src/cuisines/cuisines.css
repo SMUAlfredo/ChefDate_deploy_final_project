@@ -1,0 +1,44 @@
+.browse-cuisines {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.browse-cuisines[aria-invalid='true'] { outline: 2px solid #a02a35; }
+
+.cuisines-back { color: #215443; }
+
+.cuisine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cuisine-grid button {
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #aebeb4;
+  border-radius: .75rem;
+  color: #215443;
+  background: #fff;
+  text-align: left;
+}
+
+.cuisine-grid button:hover:not(:disabled) { color: #fff; }
+
+.cuisine-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.cuisine-grid span {
+  display: block;
+  padding: .65rem .85rem;
+  font-size: 1.125rem;
+}

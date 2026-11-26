@@ -15,6 +15,14 @@ class Booking(models.Model):
     event_at = models.DateTimeField('event date and time')
     guest_count = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     cuisine_type = models.CharField(max_length=100)
+    preferred_chef = models.ForeignKey(
+        'catalog.Chef',
+        on_delete=models.SET_NULL,
+        related_name='preferred_bookings',
+        null=True,
+        blank=True,
+        editable=False,
+    )
     allergy_notes = models.TextField(blank=True)
     status = models.CharField(
         max_length=9,
@@ -36,3 +44,4 @@ class Booking(models.Model):
 
     def __str__(self):
         return f'Booking #{self.pk}' if self.pk else 'New booking'
+# VA
