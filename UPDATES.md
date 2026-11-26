@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Consolidate the initial catalog migrations
+
+- Added `backend/catalog/migrations/0001_initial_catalog.py`. New databases create `Cuisine` and `Chef` in one migration. Kept both original catalog migrations for existing databases and retained the booking migration in its own app.
+- Verified fresh, partially migrated, and fully migrated histories in isolated SQLite with `config.settings_test`. Existing rows were preserved, the fresh catalog seeded six cuisines and 18 chefs, Django found no missing migrations, and all ten booking tests passed. Verification on a shared database remains pending.
+
 ## 2026-11-25 · Chef catalog model
 
 - Added `Chef` in `backend/catalog/models.py` and generated `backend/catalog/migrations/0002_chef.py`. Each chef has a display name, a unique slug, a required cuisine, a decimal base price in CAD per booking, and a decimal demo rating. Django protects cuisines referenced by chefs from deletion.
