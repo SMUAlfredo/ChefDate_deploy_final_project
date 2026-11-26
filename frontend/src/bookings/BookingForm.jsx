@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BookingAddOns } from './BookingAddOns.jsx';
 import { BookingFields } from './BookingFields.jsx';
 import { createBooking } from './bookingApi.js';
 
@@ -84,6 +85,8 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
           needsCuisine={needsCuisine && !preferredCuisine}
           onBrowseCuisines={onBrowseCuisines}
         />
+
+        <BookingAddOns />
 
         <button type="submit" disabled={submitting}>
           {submitting ? 'Sending request…' : 'Request booking'}

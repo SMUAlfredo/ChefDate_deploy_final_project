@@ -1,0 +1,13 @@
+.booking-add-on {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  width: fit-content;
+  padding: .25rem 0;
+}
+
+.booking-add-on input {
+  width: auto;
+  margin: 0;
+  accent-color: #215443;
+}

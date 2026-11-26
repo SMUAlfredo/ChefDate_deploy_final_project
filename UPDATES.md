@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-26 · Optional add-ons in the booking draft
+
+- Added `frontend/src/bookings/BookingAddOns.jsx` and `frontend/src/bookings/bookingAddOns.css`. Mounted the selector in `frontend/src/bookings/BookingForm.jsx`. Cleaning and Waitstaff display their CAD prices from the catalog. Selections stay in the draft when browsing cuisines and reset after a successful booking.
+- Passed `npm ci --offline` and `npm run build` in an isolated frontend copy and all 21 Django tests with `config.settings_test` on in-memory SQLite. In Chrome at 375 pixels against the same settings, verified the two catalog prices, selection retention through cuisine and chef navigation, booking creation with HTTP 201 and a preferred chef, checkbox reset, and continued form availability when the catalog request was blocked.
+- Saving add-ons with the booking and calculating the total on the server remain pending.
+
 ## 2026-11-25 · Read-only demo add-on catalog
 
 - Defined Cleaning at CAD 50.00 and Waitstaff at CAD 80.00 per booking as reusable `Decimal` prices in `backend/catalog/add_ons.py`. Registered `GET /api/catalog/add-ons/` in `backend/catalog/urls.py` and added `backend/catalog/add_on_views.py` to return each slug, display name, and two-decimal price string.
