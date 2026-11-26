@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BookingFields } from './BookingFields.jsx';
 import { createBooking } from './bookingApi.js';
 
-export function BookingForm({ hidden, preferredCuisine, onBrowseCuisines, onClearCuisine }) {
+export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseCuisines, onClearCuisine }) {
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [needsCuisine, setNeedsCuisine] = useState(false);
@@ -75,6 +75,7 @@ export function BookingForm({ hidden, preferredCuisine, onBrowseCuisines, onClea
         <BookingFields
           errors={feedback?.fields}
           preferredCuisine={preferredCuisine}
+          preferredChef={preferredChef}
           needsCuisine={needsCuisine && !preferredCuisine}
           onBrowseCuisines={onBrowseCuisines}
         />

@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Preferred chef in the booking draft
+
+- Updated `frontend/src/App.jsx` and `frontend/src/cuisines/CuisinesPage.jsx` to open each cuisine's chefs from the nested catalog response. Added `CuisineChefs.jsx` and `chefs.css` under `frontend/src/cuisines/` to show each chef's name, CAD base price per booking, demo rating, and Select chef button.
+- Updated `frontend/src/bookings/BookingForm.jsx` and `BookingFields.jsx` to display the cuisine and draft-only chef preference. Switching cuisines clears the previous chef. The booking request keeps its existing payload. Saving the preference in Django remains pending.
+- Passed `npm ci --offline` and `npm run build` in an isolated frontend copy. In Chrome with Vite preview and seeded Django on in-memory SQLite, verified all six database photos and all 18 matching chefs with prices and ratings, returning to the cuisine list, draft retention, clearing an incompatible chef, the 375-pixel layout, and a successful booking with the original request fields.
+
 ## 2026-11-25 · Cuisine picker and catalog photos
 
 - Added `frontend/src/App.jsx` and the cuisine page and styles under `frontend/src/cuisines/`. Updated `main.jsx`, `BookingForm.jsx`, and `BookingFields.jsx` to open `/#/cuisines` from the Preferred cuisine button. Choosing a cuisine returns to the existing booking draft and supplies `cuisine_type` to the booking API. The six bundled photos remain available if the live catalog cannot load.

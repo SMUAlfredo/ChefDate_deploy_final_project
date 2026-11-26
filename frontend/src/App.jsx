@@ -10,8 +10,8 @@ function subscribeToNavigation(onChange) {
   return () => window.removeEventListener('hashchange', onChange);
 }
 
-function isBrowsingCuisines() {
-  return window.location.hash === cuisinesHash;
+function getLocationHash() {
+  return window.location.hash;
 }
 
 function openCuisines() {
@@ -19,11 +19,18 @@ function openCuisines() {
 }
 
 export function App() {
-  const browsingCuisines = useSyncExternalStore(subscribeToNavigation, isBrowsingCuisines);
-  const [preferredCuisine, setPreferredCuisine] = useState('');
+  const hash = useSyncExternalStore(subscribeToNavigation, getLocationHash);
+  const cuisineSlug = hash.startsWith(`${cuisinesHash}/`) ? hash.slice(cuisinesHash.length + 1) : '';
+  const browsingCuisines = hash === cuisinesHash || Boolean(cuisineSlug);
+  const [preferences, setPreferences] = useState(null);
 
-  function selectCuisine(name) {
-    setPreferredCuisine(name);
+  function openCuisine(cuisine) {
+    setPreferences((current) => current?.cuisine.slug === cuisine.slug ? current : { cuisine, chef: null });
+    window.location.hash = `${cuisinesHash}/${cuisine.slug}`;
+  }
+
+  function selectChef(cuisine, { slug, name }) {
+    setPreferences({ cuisine, chef: { slug, name } });
     window.location.hash = '#booking';
   }
 
@@ -32,11 +39,14 @@ export function App() {
       <SiteHeader />
       <BookingForm
         hidden={browsingCuisines}
-        preferredCuisine={preferredCuisine}
+        preferredCuisine={preferences?.cuisine.name ?? ''}
+        preferredChef={preferences?.chef?.name}
         onBrowseCuisines={openCuisines}
-        onClearCuisine={() => setPreferredCuisine('')}
+        onClearCuisine={() => setPreferences(null)}
       />
-      {browsingCuisines && <CuisinesPage onSelectCuisine={selectCuisine} />}
+      {browsingCuisines && (
+        <CuisinesPage cuisineSlug={cuisineSlug} onOpenCuisine={openCuisine} onSelectChef={selectChef} />
+      )}
     </>
   );
 }
