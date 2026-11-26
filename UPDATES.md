@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-26 · Restore the local demo catalog
+
+- Found that Vite on port 5173 returned HTTP 502 for the chef and add-on catalogs because Django was stopped on port 8000. A read-only check of the local SQLite demo found six cuisines, 18 chefs, and six cuisine photos. The add-on catalog uses fixed prices in Django.
+- With approval, backed up the local demo database, rehearsed `bookings.0002_preferred_chef` on a copy, and applied it to the demo database using `config.settings_demo`. Verified the new column, preserved booking IDs, checked SQLite foreign keys, and confirmed both booking migrations were applied.
+- Started Django on `127.0.0.1:8000`. Verified HTTP 200 through Vite for the form, both catalog routes, a sample photo, and the booking CSRF route. The catalog returned 18 chefs and both add-ons. Verification covered the local demo. Hosted verification remains pending.
+
 ## 2026-11-26 · Optional add-ons in the booking draft
 
 - Added `frontend/src/bookings/BookingAddOns.jsx` and `frontend/src/bookings/bookingAddOns.css`. Mounted the selector in `frontend/src/bookings/BookingForm.jsx`. Cleaning and Waitstaff display their CAD prices from the catalog. Selections stay in the draft when browsing cuisines and reset after a successful booking.
