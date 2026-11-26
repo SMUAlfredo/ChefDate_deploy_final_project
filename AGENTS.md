@@ -1,13 +1,12 @@
 # Working on ChefDate
 
-- Before starting any ChefDate task, read and follow [SECURITY_RULES.md](SECURITY_RULES.md). Apply it throughout design, implementation, review, and verification.
-- Before starting a change, read `UPDATES.md` and check Git status for project context and work in progress.
+- At the start of every ChefDate task, read [SECURITY_RULES.md](SECURITY_RULES.md) and [UPDATES.md](UPDATES.md), and check Git status. Use `SECURITY_RULES.md` as the source for security requirements throughout design, implementation, review, and verification. Use `UPDATES.md` to understand the current state of the project and Git status to identify work in progress.
 - Use the history to locate the relevant files. Expand your review when dependencies, verification, or a discrepancy with the history calls for it.
 
 ## Scope and the verified baseline
 
 - Treat the tested US-01 through US-04 implementation as the baseline. It includes the booking model and migration, the JSON booking endpoint, the React form and acknowledgement, and staff review in Django Admin. REQ-07 still needs each collaborator's setup confirmation. Record their confirmation only after they provide it.
-- Identify the assigned story and its acceptance criteria before editing. Work on that story and the integrations it requires. Use `refactor/chefdate-structure` as the shared starting point for the remaining Sprint One work while it is the team's designated base.
+- Identify the assigned story or mini-task and its acceptance criteria before editing. Keep each change focused on one mini-task and the integrations it requires. Use `refactor/chefdate-structure` as the shared starting point for the remaining Sprint One work while it is the team's designated base.
 - Add new functionality in focused modules. Keep previously validated source files intact unless the user explicitly authorizes edits to them. When a story needs an existing integration point, explain the smallest edit needed, its impact on current callers, and how you will verify it before editing the baseline. Carry on with independent work while that decision is pending.
 - Preserve existing work by other contributors, including uncommitted changes. Keep unrelated cleanup, renames, reformatting, dependency upgrades, and generated files out of the change. Keep released migrations intact and use new migrations for approved schema changes.
 
@@ -24,8 +23,9 @@
 
 ## Code structure
 
-- Give each new module one responsibility. Keep entry points focused on wiring. Keep request handling, validation, persistence, business rules, and rendering in the components that own them.
-- Keep functions short enough to follow in one pass. Use descriptive names, straightforward control flow, and small components organized by feature. Split new files when they start accumulating unrelated responsibilities. Reuse tested helpers and add abstractions where they remove meaningful duplication.
+- Follow the existing project structure and give each new module one responsibility. Keep entry points focused on wiring. Keep request handling, validation, persistence, business rules, and rendering in the components that own them.
+- Keep functions short enough to follow in one pass. Use descriptive names, straightforward control flow, and small components organized by feature. Reuse existing logic, including tested helpers. Add a function or module when it makes the code easier to understand or maintain, and split files that accumulate unrelated responsibilities. Avoid unused code, duplication, unnecessary dependencies, and unrelated refactoring.
+- Write new or edited project content in English, including identifiers, source filenames, comments, docstrings, tests, UI text, validation messages, documentation, `UPDATES.md` entries, and commit messages. Keep the supplied filenames in `images/` and map them to English cuisine names when implementing the frontend.
 - Preserve the public API, booking statuses, data compatibility, and permission checks relied on by existing callers. When a story requires a contract change, include the affected clients, existing records, and migration or rollback implications in the review.
 
 ## Security and infrastructure
@@ -39,4 +39,5 @@
 
 - Run the relevant baseline and story checks before committing. For backend changes, use `uv run --locked python manage.py test --settings=config.settings_test` from `backend/`. Check migration consistency with `makemigrations --check --dry-run` using the same settings when model code changes. For frontend changes, run `npm ci` and `npm run build` from `frontend/` and exercise the affected flow. For protected features, verify that authorized actions succeed and that unauthorized actions are denied.
 - Work on a dedicated branch for the story. Review the diff and staged files for scope, credentials, private data, and weakened controls. Preserve shared history and use ordinary pushes when publication is authorized. Coordinate any requested rewrite, deletion, or forced update with the repository owner.
-- Make one focused Git commit per coherent change. Identify the story or requirement in the commit message when applicable. Stage only files belonging to the change and include its entry at the top of `UPDATES.md`. Record the date, relevant files, what changed, checks actually run and their results, and remaining work. Reference the entry in the handoff.
+- Before handoff, review the diff, run the relevant checks, and add an entry at the top of `UPDATES.md` with the date, changed files, what changed, checks actually run and their results, and remaining work. Reference the entry in the handoff.
+- Prepare one focused Git commit per mini-task. Provide exact Git staging commands that stage only the files and `UPDATES.md` entry for that change, and provide an English commit message. Identify the story or requirement in the message when applicable. Alfredo makes the commits and pushes.

@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · ChefDate coding conventions
+
+- Updated `AGENTS.md` to record required reading, mini-task scope, code organization and reuse, English project content, and preservation of supplied image filenames.
+- Defined the handoff requirements for checks, `UPDATES.md`, and exact staging commands. Alfredo makes commits and pushes. Reviewed the documentation diff and checked local links and whitespace.
+- Publication remains pending.
+
 ## 2026-11-24 · Security rules for the remaining Sprint One work
 
 - Aligned `SECURITY_RULES.md` with `AGENTS.md` on the verified baseline, authorized infrastructure changes, safe migration targets, isolated tests, and Git review.
