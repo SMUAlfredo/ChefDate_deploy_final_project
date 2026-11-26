@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Read-only catalog API
+
+- Added `GET /api/catalog/` in `backend/catalog/views.py` and `backend/catalog/urls.py`, with a route in `backend/config/urls.py`. The response groups chefs by cuisine, orders both levels by slug, and returns CAD prices as two-decimal strings and demo ratings as numbers.
+- Added endpoint tests in `backend/catalog/tests.py`. With `config.settings_test` on in-memory SQLite, the seeded response contained six cuisines with three chefs each, the empty response was `[]`, and POST returned `405` without writing records. All three catalog tests and all ten existing booking tests passed.
+- Frontend integration and hosted verification remain pending.
+
 ## 2026-11-25 · Consolidate the initial catalog migrations
 
 - Added `backend/catalog/migrations/0001_initial_catalog.py`. New databases create `Cuisine` and `Chef` in one migration. Kept both original catalog migrations for existing databases and retained the booking migration in its own app.
