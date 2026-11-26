@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookingAddOns } from './BookingAddOns.jsx';
+import { BookingAddOns, useBookingAddOnDraft } from './BookingAddOns.jsx';
 import { BookingFields } from './BookingFields.jsx';
 import { createBooking } from './bookingApi.js';
 
@@ -7,6 +7,7 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [needsCuisine, setNeedsCuisine] = useState(false);
+  const addOnDraft = useBookingAddOnDraft();
   const fields = feedback?.fields;
   const chefErrors = feedback?.chefSlug === preferredChef?.slug ? fields?.preferred_chef_slug : undefined;
   const hasFieldErrors = chefErrors?.length || Object.keys(fields ?? {}).some((name) => name !== 'preferred_chef_slug');
@@ -45,6 +46,7 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
 
       setFeedback({ type: 'success', id: result.id });
       form.reset();
+      addOnDraft.reset();
       setNeedsCuisine(false);
       onClearCuisine();
     } catch {
@@ -61,7 +63,7 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
         <p>Tell us about your event and how we can reach you.</p>
       </header>
 
-      <form className="booking" onSubmit={handleSubmit}>
+      <form className="booking" onSubmit={handleSubmit} onChange={addOnDraft.handleGuestCountChange}>
         {feedback?.type === 'success' && (
           <div className="feedback feedback--success" role="status">
             <strong>Booking request received.</strong>
@@ -86,7 +88,11 @@ export function BookingForm({ hidden, preferredCuisine, preferredChef, onBrowseC
           onBrowseCuisines={onBrowseCuisines}
         />
 
-        <BookingAddOns />
+        <BookingAddOns
+          maxQuantity={addOnDraft.maxQuantity}
+          quantities={addOnDraft.quantities}
+          onQuantityChange={addOnDraft.setQuantity}
+        />
 
         <button type="submit" disabled={submitting}>
           {submitting ? 'Sending request…' : 'Request booking'}

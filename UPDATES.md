@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-26 · Set add-on quantities by guest count
+
+- Updated `frontend/src/bookings/BookingAddOns.jsx`, `frontend/src/bookings/bookingAddOns.css`, and `frontend/src/bookings/BookingForm.jsx` to show the five-guest coverage and unit price and let users increase or decrease Cleaning and Waitstaff independently. Each add-on is optional and its maximum rounds the guest count up to the next group of five. Reducing the guest count caps existing selections at the new maximum.
+- Passed `npm ci --offline` and `npm run build` in an isolated frontend copy. In Chrome at 375 pixels with Django on in-memory SQLite, verified the limits for 5, 6, and 11 guests, quantity controls, return from chef selection, HTTP 201 for a booking with a preferred chef, reset after success, and catalog failure handling. Also verified that Vite serves the updated selector and catalog in the local demo.
+- The quantities are stored in the draft. Booking persistence and server-side totals remain pending.
+
 ## 2026-11-26 · Restore the local demo catalog
 
 - Found that Vite on port 5173 returned HTTP 502 for the chef and add-on catalogs because Django was stopped on port 8000. A read-only check of the local SQLite demo found six cuisines, 18 chefs, and six cuisine photos. The add-on catalog uses fixed prices in Django.
