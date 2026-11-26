@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import { BookingFields } from './BookingFields.jsx';
 import { createBooking } from './bookingApi.js';
 
-export function BookingForm() {
+export function BookingForm({ hidden, preferredCuisine, onBrowseCuisines, onClearCuisine }) {
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null);
+  const [needsCuisine, setNeedsCuisine] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
     if (submitting) return;
 
     const form = event.currentTarget;
+    if (!preferredCuisine) {
+      setNeedsCuisine(true);
+      form.querySelector('.browse-cuisines').focus();
+      return;
+    }
+
     const payload = Object.fromEntries(new FormData(form));
+    payload.cuisine_type = preferredCuisine;
     const eventDate = new Date(payload.event_at);
     if (Number.isNaN(eventDate.getTime())) {
       setFeedback({ type: 'error', fields: { event_at: ['invalid'] } });
@@ -32,6 +40,8 @@ export function BookingForm() {
 
       setFeedback({ type: 'success', id: result.id });
       form.reset();
+      setNeedsCuisine(false);
+      onClearCuisine();
     } catch {
       setFeedback({ type: 'unavailable' });
     } finally {
@@ -40,7 +50,7 @@ export function BookingForm() {
   }
 
   return (
-    <main id="booking" className="page">
+    <main id="booking" className="page" hidden={hidden}>
       <header className="page-heading">
         <h1>Request a booking</h1>
         <p>Tell us about your event and how we can reach you.</p>
@@ -62,7 +72,12 @@ export function BookingForm() {
           <p className="feedback feedback--error" role="alert">We couldn’t send your request. Please try again.</p>
         )}
 
-        <BookingFields errors={feedback?.fields} />
+        <BookingFields
+          errors={feedback?.fields}
+          preferredCuisine={preferredCuisine}
+          needsCuisine={needsCuisine && !preferredCuisine}
+          onBrowseCuisines={onBrowseCuisines}
+        />
 
         <button type="submit" disabled={submitting}>
           {submitting ? 'Sending request…' : 'Request booking'}

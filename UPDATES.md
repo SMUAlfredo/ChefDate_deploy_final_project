@@ -2,6 +2,13 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Cuisine picker and catalog photos
+
+- Added `frontend/src/App.jsx` and the cuisine page and styles under `frontend/src/cuisines/`. Updated `main.jsx`, `BookingForm.jsx`, and `BookingFields.jsx` to open `/#/cuisines` from the Preferred cuisine button. Choosing a cuisine returns to the existing booking draft and supplies `cuisine_type` to the booking API. The six bundled photos remain available if the live catalog cannot load.
+- Added six JPEG copies in `frontend/src/cuisines/assets/`. The Mexican, Italian, Indian, Canadian, French, and Spanish copies come from `mexicana.jpg`, `italian.jpg`, `india.jpg`, `canada.jfif`, `francia.jpg`, and `españa.jpg`, respectively. The originals in `images/` were preserved byte for byte.
+- Added `CuisinePhoto`, migration `0003_cuisine_photo.py`, the read-only photo route, `load_cuisine_photos`, and backend tests. Added `config/settings_demo.py` for the persistent local SQLite demo and verified six stored JPEGs against the source bytes. The existing Vite instance returned all six JPEGs after Django started on port 8000.
+- Passed `npm ci --offline`, `npm run build`, the migration consistency check, and all 15 Django tests. In Chrome with Vite preview and isolated Django, verified all six database photos, six bundled fallbacks, the required cuisine selection, draft preservation through all three return paths, a 375-pixel layout, and a successful booking submission. Neon loading and chef selection remain pending.
+
 ## 2026-11-25 · Shared React navigation
 
 - Added `frontend/src/SiteHeader.jsx` and mounted it above the booking form from `frontend/src/main.jsx`. Moved the ChefDate label out of `frontend/src/bookings/BookingForm.jsx` and added header styles in `frontend/src/styles.css`. Book links to the form and is marked current. Profile and Booking Status display as unavailable.

@@ -34,3 +34,8 @@ class Chef(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CuisinePhoto(models.Model):
+    cuisine = models.OneToOneField(Cuisine, on_delete=models.CASCADE)
+    jpeg = models.BinaryField()
