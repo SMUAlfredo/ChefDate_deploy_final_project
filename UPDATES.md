@@ -2,6 +2,11 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Read-only demo add-on catalog
+
+- Defined Cleaning at CAD 50.00 and Waitstaff at CAD 80.00 per booking as reusable `Decimal` prices in `backend/catalog/add_ons.py`. Registered `GET /api/catalog/add-ons/` in `backend/catalog/urls.py` and added `backend/catalog/add_on_views.py` to return each slug, display name, and two-decimal price string.
+- Added `backend/catalog/test_add_ons.py` to verify both options and prices and check that POST returns `405`. All 21 Django tests passed under `config.settings_test` on in-memory SQLite, including the existing catalog and booking tests. Booking selection and server-side price calculation remain pending.
+
 ## 2026-11-25 · Submit the selected chef from React
 
 - Updated `frontend/src/App.jsx` and `frontend/src/bookings/BookingForm.jsx` to send the selected `preferred_chef_slug` through the existing booking client. `cuisine_type` still carries the cuisine display name. Changing cuisines clears an incompatible chef, and requests without a selection omit the slug.
