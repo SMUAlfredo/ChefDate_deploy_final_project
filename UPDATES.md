@@ -2,6 +2,12 @@
 
 Entries are listed newest first. Each entry summarizes the change, the relevant files, the checks performed, and any remaining work.
 
+## 2026-11-25 · Cuisine catalog model
+
+- Added `Cuisine` in `backend/catalog/models.py` with a display name and a unique slug. Registered the app in `backend/config/settings_base.py` and generated `backend/catalog/migrations/0001_initial.py`.
+- On in-memory SQLite with `config.settings_test`, verified migration apply, rollback, and reapply, an empty initial catalog, and database rejection of duplicate slugs. Django found no pending model changes. All ten existing booking tests passed.
+- The later seed task uses Mexican (`mexican`), Italian (`italian`), Indian (`indian`), Canadian (`canadian`), French (`french`), and Spanish (`spanish`). Chef, seed data, the catalog endpoint, React integration, and Neon verification remain pending.
+
 ## 2026-11-25 · ChefDate coding conventions
 
 - Updated `AGENTS.md` to record required reading, mini-task scope, code organization and reuse, English project content, and preservation of supplied image filenames.
